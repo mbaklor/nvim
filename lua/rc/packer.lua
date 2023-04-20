@@ -23,7 +23,7 @@ return require('packer').startup(function(use)
         end
     }
     use ({
-	'catppuccin/nvim', 
+	'catppuccin/nvim',
 	as = 'catppuccin',
 	config = function()
 	    vim.cmd("colorscheme catppuccin-frappe")
