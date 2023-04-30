@@ -26,4 +26,8 @@ vim.opt.isfname:append("@-@")
 
 vim.opt.laststatus = 3
 
+if vim.loop.os_uname().sysname == 'Windows_NT' then
+    vim.opt.shell = 'pwsh'
+end
+
 vim.g.mapleader = " "
