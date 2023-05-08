@@ -7,6 +7,7 @@ local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
 local yank_group = augroup('HighlightYank', {})
 
+
 autocmd('TextYankPost', {
     group = yank_group,
     pattern = '*',
@@ -17,6 +18,14 @@ autocmd('TextYankPost', {
         })
     end,
 })
+
+require("lsp-zero").on_attach(function()
+    autocmd('BufWritePre', {
+        callback = function ()
+            vim.lsp.buf.format()
+        end
+    })
+end)
 
 vim.g.netrw_browse_split = 0
 vim.g.netrw_banner = 0

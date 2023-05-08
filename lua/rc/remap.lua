@@ -26,3 +26,9 @@ vim.keymap.set("n", "<A-s>","<C-w>s")
 vim.keymap.set("n", "<A-v>","<C-w>v")
 
 vim.keymap.set("n", "<A-o>","<C-w>o")
+
+vim.keymap.set("n", "<A-J>", "<cmd>m +1<CR>==")
+vim.keymap.set("n", "<A-K>", "<cmd>m -2<CR>==")
+
+vim.keymap.set("v", "<A-K>", "<cmd>'<,'>m '<-2<CR>gv=gv")
+vim.keymap.set("v", "<A-J>", "<cmd>'<,'>m '>+1<CR>gv=gv")
