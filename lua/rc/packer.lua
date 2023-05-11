@@ -16,12 +16,6 @@ return require('packer').startup(function(use)
         -- or                            , branch = '0.1.x',
         requires = { { 'nvim-lua/plenary.nvim' } }
     }
-    use {
-        'm4xshen/autoclose.nvim',
-        config = function()
-            require("autoclose").setup()
-        end
-    }
     use({
         'catppuccin/nvim',
         as = 'catppuccin',
