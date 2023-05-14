@@ -35,6 +35,11 @@ vim.keymap.set("v", "<A-J>", "<cmd>'<,'>m '>+1<CR>gv=gv")
 
 vim.keymap.set("n", "<leader>t", function()
     vim.cmd("split")
-    vim.cmd("term")
+    local term = vim.fn.bufnr("term")
+    if term > 0 then
+        vim.cmd('buf ' .. term)
+    else
+        vim.cmd("term")
+    end
     vim.cmd("startinsert")
 end)
