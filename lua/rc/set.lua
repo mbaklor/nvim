@@ -33,4 +33,7 @@ if vim.loop.os_uname().sysname == 'Windows_NT' then
     vim.opt.shell = 'pwsh'
 end
 
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
+
 vim.g.mapleader = " "
