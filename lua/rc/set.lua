@@ -30,6 +30,8 @@ vim.opt.splitbelow = true
 vim.opt.splitright = true
 
 vim.opt.termguicolors = true
+vim.o.t_Co = 256
+
 if vim.loop.os_uname().sysname == 'Windows_NT' then
     vim.opt.shell = 'pwsh'
 end

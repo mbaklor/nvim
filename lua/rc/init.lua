@@ -21,11 +21,23 @@ autocmd('TextYankPost', {
 
 require("lsp-zero").on_attach(function()
     autocmd('BufWritePre', {
-        callback = function ()
+        callback = function()
             vim.lsp.buf.format()
         end
     })
 end)
+
+local highlight = augroup('HighlightCssColor', {})
+autocmd('BufReadPost', {
+    group = highlight,
+    pattern = '*.css,*.vue',
+
+    callback = function()
+        local color = require('nvim-highlight-colors')
+        color.setup {}
+        color.turnOn()
+    end,
+})
 
 vim.g.netrw_browse_split = 0
 vim.g.netrw_banner = 0

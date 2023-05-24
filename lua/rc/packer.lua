@@ -78,4 +78,7 @@ return require('packer').startup(function(use)
             require('mini.ai').setup()
         end
     }
+    use {
+        'brenoprata10/nvim-highlight-colors',
+    }
 end)
