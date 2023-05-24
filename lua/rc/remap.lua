@@ -48,3 +48,8 @@ vim.keymap.set("n", "<leader>t", function()
     end
     vim.cmd("startinsert")
 end)
+vim.api.nvim_create_user_command('Hd',
+    function()
+        require("hardtime").setup()
+    end,
+    {})

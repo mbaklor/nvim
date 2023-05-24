@@ -30,6 +30,13 @@ return require('packer').startup(function(use)
     --vim.cmd("colorscheme rose-pine")
     --end
     --})
+    use('m4xshen/hardtime.nvim')
+    use {
+        'nvim-lualine/lualine.nvim',
+        config = function()
+            require('lualine').setup()
+        end
+    }
     use('nvim-treesitter/nvim-treesitter', { run = ':TSUpdate' })
     use('ThePrimeagen/harpoon')
     use('mbbill/undotree')
