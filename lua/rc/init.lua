@@ -20,10 +20,23 @@ autocmd('TextYankPost', {
 })
 
 require("lsp-zero").on_attach(function()
+    local cursor_group = augroup('CursorHighlight', {})
     autocmd('BufWritePre', {
         callback = function()
             vim.lsp.buf.format()
         end
+    })
+    autocmd({ 'CursorHold', 'CursorHoldI' }, {
+        group = cursor_group,
+        callback = function()
+            vim.lsp.buf.document_highlight()
+        end,
+    })
+    autocmd({ 'CursorMoved', 'CursorMovedI' }, {
+        group = cursor_group,
+        callback = function()
+            vim.lsp.buf.clear_references()
+        end,
     })
 end)
 
