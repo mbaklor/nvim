@@ -30,6 +30,12 @@ return require('packer').startup(function(use)
     --vim.cmd("colorscheme rose-pine")
     --end
     --})
+    use {
+        'lewis6991/gitsigns.nvim',
+        config = function()
+            require('gitsigns').setup()
+        end
+    }
     use('m4xshen/hardtime.nvim')
     use {
         'nvim-lualine/lualine.nvim',
@@ -62,6 +68,8 @@ return require('packer').startup(function(use)
             { 'hrsh7th/nvim-cmp' },     -- Required
             { 'hrsh7th/cmp-nvim-lsp' }, -- Required
             { 'L3MON4D3/LuaSnip' },     -- Required
+            { 'hrsh7th/cmp-nvim-lsp-signature-help' },
+            { 'hrsh7th/cmp-buffer' },
         }
     }
     use {
