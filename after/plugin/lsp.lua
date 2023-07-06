@@ -1,7 +1,30 @@
 local lsp = require('lsp-zero').preset({})
 
+local augroup = vim.api.nvim_create_augroup
+local autocmd = vim.api.nvim_create_autocmd
 lsp.on_attach(function(client, bufnr)
     lsp.default_keymaps({ buffer = bufnr })
+    local cursor_group = augroup('CursorHighlight', {})
+    local save_group = augroup('CursorHighlight', {})
+    autocmd('BufWritePre', {
+        group = save_group,
+        callback = function()
+            vim.lsp.buf.format()
+            print("saving")
+        end
+    })
+    autocmd({ 'CursorHold', 'CursorHoldI' }, {
+        group = cursor_group,
+        callback = function()
+            vim.lsp.buf.document_highlight()
+        end,
+    })
+    autocmd({ 'CursorMoved', 'CursorMovedI' }, {
+        group = cursor_group,
+        callback = function()
+            vim.lsp.buf.clear_references()
+        end,
+    })
 end)
 
 require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
