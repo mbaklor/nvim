@@ -27,11 +27,11 @@ vim.keymap.set("n", "<A-v>", "<C-w>v")
 vim.keymap.set("n", "<A-o>", "<C-w>o")
 vim.keymap.set("n", "<A-c>", "<C-w>c")
 
-vim.keymap.set("n", "<A-J>", "<cmd>m +1<CR>==")
-vim.keymap.set("n", "<A-K>", "<cmd>m -2<CR>==")
+vim.keymap.set("n", "<A-J>", ":m +1<CR>==")
+vim.keymap.set("n", "<A-K>", ":m -2<CR>==")
 
-vim.keymap.set("v", "<A-K>", "<cmd>'<,'>m '<-2<CR>gv=gv")
-vim.keymap.set("v", "<A-J>", "<cmd>'<,'>m '>+1<CR>gv=gv")
+vim.keymap.set("v", "<A-K>", ":m '<-2<CR>gv=gv")
+vim.keymap.set("v", "<A-J>", ":m '>+1<CR>gv=gv")
 
 vim.keymap.set("n", "<leader>o", "o<ESC>")
 vim.keymap.set("n", "<leader>O", "O<ESC>")
