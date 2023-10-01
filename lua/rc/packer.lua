@@ -79,13 +79,15 @@ return require('packer').startup(function(use)
         end
     }
     use('tpope/vim-surround')
-
     use {
-        'echasnovski/mini.ai',
-        config = function()
-            require('mini.ai').setup()
+        'andymass/vim-matchup',
+        setup = function()
+            -- may set any options here
+            vim.g.matchup_matchparen_offscreen = { method = "popup" }
+            vim.g.matchup_surround_enabled = 1
         end
     }
+    use("RRethy/vim-illuminate")
     use {
         'brenoprata10/nvim-highlight-colors',
     }

@@ -24,6 +24,8 @@ vim.keymap.set("v", "<A-J>", ":m '>+1<CR>gv=gv")
 vim.keymap.set("n", "<leader>o", "o<ESC>")
 vim.keymap.set("n", "<leader>O", "O<ESC>")
 
+vim.keymap.set("n", "<leader>k", ":MatchupWhereAmI<CR>")
+
 vim.keymap.set("n", "<leader>t", function()
     local term = vim.fn.bufnr("term")
     local win = vim.fn.bufwinnr(term)
