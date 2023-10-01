@@ -30,6 +30,14 @@ autocmd('BufReadPost', {
         color.turnOn()
     end,
 })
+autocmd('BufLeave', {
+    group = highlight,
+    pattern = '*.css,*.vue',
+    callback = function()
+        local color = require('nvim-highlight-colors')
+        color.turnOff()
+    end,
+})
 
 vim.g.netrw_browse_split = 0
 vim.g.netrw_banner = 0
