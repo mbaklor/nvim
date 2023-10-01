@@ -4,6 +4,7 @@ local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
 lsp.on_attach(function(client, bufnr)
     lsp.default_keymaps({ buffer = bufnr })
+    vim.keymap.set("n", "gl", ":lua vim.diagnostic.setqflist()<CR>")
     local save_group = augroup('CursorHighlight', {})
     autocmd('BufWritePre', {
         group = save_group,
