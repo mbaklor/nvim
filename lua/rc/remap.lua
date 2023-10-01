@@ -9,8 +9,11 @@ vim.keymap.set("x", "<leader>p", [["_dP]])
 vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
 vim.keymap.set("n", "<leader>Y", [["+Y]])
 
-vim.keymap.set("t", "<ESC>", "<C-\\><C-n>")
+vim.keymap.set("n", "<leader>cc", ":ccl<CR>")
+vim.keymap.set("n", "<leader>cn", ":cn<CR>")
+vim.keymap.set("n", "<leader>cp", ":cp<CR>")
 
+vim.keymap.set("t", "<ESC>", "<C-\\><C-n>")
 
 vim.keymap.set("n", "<A-J>", ":m +1<CR>==")
 vim.keymap.set("n", "<A-K>", ":m -2<CR>==")
