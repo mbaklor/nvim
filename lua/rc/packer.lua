@@ -72,6 +72,7 @@ return require('packer').startup(function(use)
             { 'hrsh7th/cmp-buffer' },
         }
     }
+    use("jose-elias-alvarez/null-ls.nvim")
     use {
         'numToStr/Comment.nvim',
         config = function()
