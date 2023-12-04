@@ -1,7 +1,7 @@
-require("rc.packer")
-require("rc.set")
-require("rc.remap")
-require("rc.filetypes")
+require("mic.packer")
+require("mic.set")
+require("mic.remap")
+require("mic.filetypes")
 
 local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
