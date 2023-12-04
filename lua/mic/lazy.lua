@@ -39,6 +39,7 @@ require("lazy").setup({
     },
     {
         'nvim-lualine/lualine.nvim',
+        config = true,
         lazy = false
     },
     {
@@ -74,7 +75,11 @@ require("lazy").setup({
         }
     },
     { "jose-elias-alvarez/null-ls.nvim" },
-    { 'numToStr/Comment.nvim', },
+    {
+        'numToStr/Comment.nvim',
+        config = true,
+        event = "BufEnter"
+    },
     { 'tpope/vim-surround' },
     {
         'andymass/vim-matchup',
