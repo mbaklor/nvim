@@ -1,7 +1,8 @@
-require("mic.packer")
+require("mic.lazy")
 require("mic.set")
 require("mic.remap")
 require("mic.filetypes")
+require("mic.plugin")
 
 local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
