@@ -1,6 +1,6 @@
-require("mic.lazy")
 require("mic.set")
 require("mic.remap")
+require("mic.lazy")
 require("mic.filetypes")
 require("mic.plugin")
 
