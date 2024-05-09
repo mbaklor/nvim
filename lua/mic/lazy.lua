@@ -122,6 +122,7 @@ require("lazy").setup({
         end
     },
     { "RRethy/vim-illuminate" },
-    { 'brenoprata10/nvim-highlight-colors' }
+    { 'brenoprata10/nvim-highlight-colors' },
+    { "ziontee113/color-picker.nvim",      config = true }
 
 })
