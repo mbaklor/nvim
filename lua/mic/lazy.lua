@@ -46,7 +46,12 @@ require("lazy").setup({
         'nvim-treesitter/nvim-treesitter',
         build = ':TSUpdate'
     },
-    { 'ThePrimeagen/harpoon' },
+    {
+        'ThePrimeagen/harpoon',
+        branch = 'harpoon2',
+        dependencies = { 'nvim-lua/plenary.nvim' },
+        config = true
+    },
     { 'mbbill/undotree' },
     { 'tpope/vim-fugitive' },
     { "nvim-treesitter/nvim-treesitter-context" },
