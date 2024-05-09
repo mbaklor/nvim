@@ -1,10 +1,16 @@
-local lsp = require('lsp-zero').preset({})
+local lsp = require('lsp-zero')
+lsp.preset({})
 
 local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
 lsp.on_attach(function(client, bufnr)
-    lsp.default_keymaps({ buffer = bufnr })
-    vim.keymap.set("n", "gl", ":lua vim.diagnostic.setqflist()<CR>")
+    local opts = { buffer = bufnr, remap = false }
+
+    vim.keymap.set("n", "<leader>crn", function() vim.lsp.buf.rename() end, opts)
+    vim.keymap.set({ "n", "x" }, "<leader>crf", function() vim.lsp.buf.format() end, opts)
+    vim.keymap.set("n", "<leader>cra", function() vim.lsp.buf.code_action() end, opts)
+    vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
+    vim.keymap.set("n", "gl", ":lua vim.diagnostic.setqflist()<CR>", opts)
     local save_group = augroup('CursorHighlight', {})
     autocmd('BufWritePre', {
         group = save_group,
