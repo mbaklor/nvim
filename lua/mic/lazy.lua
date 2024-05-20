@@ -22,7 +22,41 @@ require("lazy").setup({
 
     {
         'nvim-telescope/telescope.nvim',
-        dependencies = { 'nvim-lua/plenary.nvim' }
+        dependencies = { 'nvim-lua/plenary.nvim' },
+        config = function()
+            local sep = '/'
+            local telescope = require("telescope")
+            local telescopeConfig = require("telescope.config")
+            local vimgrep_arguments = { unpack(telescopeConfig.values.vimgrep_arguments) }
+
+            table.insert(vimgrep_arguments, "--path-separator")
+            table.insert(vimgrep_arguments, "/")
+
+
+            table.insert(vimgrep_arguments, "--glob")
+            table.insert(vimgrep_arguments, "!{.git/*}")
+
+            telescope.setup({
+                defaults = {
+                    vimgrep_arguments = vimgrep_arguments
+                },
+                pickers = {
+                    find_files = {
+                        hidden = true,
+                        find_command = {
+                            "rg",
+                            "--files",
+                            "--color",
+                            "never",
+                            '--glob',
+                            '!{.git/*}',
+                            "--path-separator",
+                            sep,
+                        }
+                    }
+                }
+            })
+        end
     },
     {
         'catppuccin/nvim',
