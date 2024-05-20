@@ -27,7 +27,12 @@ autocmd('BufReadPost', {
 
     callback = function()
         local color = require('nvim-highlight-colors')
-        color.setup {}
+        color.setup {
+            render = "virtual",
+            virtual_symbol = '■',
+            enable_named_colors = true,
+            enable_tailwind = true
+        }
         color.turnOn()
     end,
 })
