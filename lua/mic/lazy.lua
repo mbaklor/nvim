@@ -153,11 +153,6 @@ require("lazy").setup({
         }
     },
     { "jose-elias-alvarez/null-ls.nvim" },
-    {
-        'numToStr/Comment.nvim',
-        config = true,
-        event = "BufEnter"
-    },
     { 'tpope/vim-surround' },
     {
         'kristijanhusak/vim-dadbod-ui',
