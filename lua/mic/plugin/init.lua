@@ -1,8 +1,0 @@
--- require("mic.plugin.colors")
-require("mic.plugin.fugitive")
-require('mic.plugin.harpoon')
-require('mic.plugin.lsp')
-require('mic.plugin.null-ls')
-require('mic.plugin.telescope')
-require('mic.plugin.treesitter')
-require('mic.plugin.undotree')
