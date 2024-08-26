@@ -46,3 +46,5 @@ vim.api.nvim_create_user_command('Hd',
         require("hardtime").setup()
     end,
     {})
+
+vim.api.nvim_create_user_command('W', ":noautocmd w", {})
