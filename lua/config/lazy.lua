@@ -13,6 +13,7 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
     spec = {
+        'JoosepAlviste/nvim-ts-context-commentstring',
         { import = "plugins" },
     },
     checker = { enabled = true },
