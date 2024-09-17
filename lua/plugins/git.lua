@@ -7,7 +7,8 @@ return {
                 function() vim.cmd("aboveleft Git") end,
                 desc = "Open fugitive above current buffer"
             },
-        }
+        },
+        lazy = false
     },
     {
         'lewis6991/gitsigns.nvim',

@@ -87,7 +87,8 @@ return {
                 -- starter.sections.recent_files(10, true),
                 { name = "Find Files",  action = "Telescope find_files",                                         section = "Telescope" },
                 harpoon_files(),
-                { name = "Lazy", action = "Lazy check", section = "Builtin actions" },
+                { name = "Lazy", action = "Lazy check",                                            section = "Builtin actions" },
+                { name = "Git",  action = "lua vim.cmd('Explore') vim.cmd('Git') vim.cmd('only')", section = "Builtin actions" },
                 starter.sections.builtin_actions()
             },
         })
