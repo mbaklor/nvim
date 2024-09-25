@@ -72,7 +72,7 @@ return {
                 table.insert(section,
                     {
                         name = i .. ': ' .. item.value,
-                        action = 'edit ' .. item.value,
+                        action = 'lua require("harpoon"):list():select(' .. i .. ')',
                         section =
                         "Harpoon"
                     })
