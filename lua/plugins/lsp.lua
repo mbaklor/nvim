@@ -39,7 +39,12 @@ return {
             autocmd('BufWritePre', {
                 group = save_group,
                 callback = function()
-                    vim.lsp.buf.format()
+                    vim.lsp.buf.format({
+                        async = false,
+                        filter = function(c)
+                            return c.name ~= "ts_ls"
+                        end
+                    })
                     print("saving")
                 end
             })

@@ -17,8 +17,6 @@ return {
                         "--disable", "import-error"
                     }
                 }),
-                -- null_ls.builtins.code_actions.eslint,
-                -- null_ls.builtins.diagnostics.eslint,
             }
         })
     end
