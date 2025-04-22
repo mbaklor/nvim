@@ -1,19 +1,30 @@
 return {
-    'ThePrimeagen/harpoon',
+    'mbaklor/harpoon',
     branch = 'harpoon2',
-    dependencies = { 'nvim-lua/plenary.nvim' },
-    keys = {
-        { "<leader>a", function() require("harpoon"):list():add() end },
-        { "<C-e>", function() local harpoon = require("harpoon") harpoon.ui:toggle_quick_menu(harpoon:list()) end },
+    config = function()
+        local harpoon = require("harpoon")
 
-        { "<A-q>", function() require("harpoon"):list():select(1) end },
-        { "<A-w>", function() require("harpoon"):list():select(2) end },
-        { "<A-e>", function() require("harpoon"):list():select(3) end },
-        { "<A-r>", function() require("harpoon"):list():select(4) end },
+        harpoon:setup({
+            settings = {
+                save_on_toggle = true,
+                sync_on_ui_close = true
+            },
+        })
+
+        vim.keymap.set("n", "<leader>a", function() harpoon:list():add() end)
+        vim.keymap.set("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
+
+        vim.keymap.set("n", "<A-q>", function() harpoon:list():select(1) end)
+        vim.keymap.set("n", "<A-w>", function() harpoon:list():select(2) end)
+        vim.keymap.set("n", "<A-e>", function() harpoon:list():select(3) end)
+        vim.keymap.set("n", "<A-r>", function() harpoon:list():select(4) end)
 
         -- Toggle previous & next buffers stored within Harpoon list
-        { "<C-A-P>", function() require("harpoon"):list():prev() end },
-        { "<C-A-N>", function() require("harpoon"):list():next() end },
+        vim.keymap.set("n", "<C-A-P>", function() harpoon:list():prev() end)
+        vim.keymap.set("n", "<C-A-N>", function() harpoon:list():next() end)
+    end,
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    keys = {
 
     }
 }
