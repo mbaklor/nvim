@@ -390,11 +390,34 @@ local kickstart = {
 			completion = {
 				-- By default, you may press `<c-space>` to show the documentation.
 				-- Optionally, set `auto_show = true` to show the documentation after a delay.
-				documentation = { auto_show = true, auto_show_delay_ms = 500 },
+				documentation = {
+					auto_show = true,
+					auto_show_delay_ms = 500,
+				},
+				menu = {
+					draw = {
+						components = {
+							kind_icon = {
+								text = function(ctx)
+									return " " .. ctx.kind_icon .. ctx.icon_gap .. " "
+								end,
+							},
+							source_name = {
+								text = function(ctx)
+									return " [" .. ctx.source_name .. "] "
+								end,
+							},
+						},
+						columns = {
+							{ "label", "label_description", gap = 1 },
+							{ "source_name", "kind_icon", "kind" },
+						},
+					},
+				},
 			},
 
 			sources = {
-				default = { "lsp", "path", "snippets", "lazydev" },
+				default = { "lsp", "path", "snippets", "buffer", "lazydev" },
 				providers = {
 					lazydev = { module = "lazydev.integrations.blink", score_offset = 100 },
 				},
@@ -409,7 +432,7 @@ local kickstart = {
 			-- the rust implementation via `'prefer_rust_with_warning'`
 			--
 			-- See :h blink-cmp-config-fuzzy for more information
-			fuzzy = { implementation = "lua" },
+			fuzzy = { implementation = "prefer_rust_with_warning" },
 
 			-- Shows a signature help window while you type arguments for a function
 			signature = { enabled = true },
