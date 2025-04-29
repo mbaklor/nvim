@@ -99,6 +99,13 @@ local kickstart = {
 					map("<C-h>", vim.lsp.buf.signature_help, "Show Signature [H]elp", "i")
 					map("gl", vim.diagnostic.setqflist, "Diagnostics [L]ist")
 
+					local client = vim.lsp.get_client_by_id(event.data.client_id)
+					if client == nil then
+						return
+					end
+					if client:supports_method("textDocument/documentColor") then
+						vim.lsp.document_color.enable(true, event.buf, { style = "virtual" })
+					end
 					--[[
 
                     -- This function resolves a difference between neovim nightly (version 0.11) and stable (version 0.10)
@@ -119,7 +126,6 @@ local kickstart = {
                     --    See `:help CursorHold` for information about when this is executed
                     --
                     -- When you move your cursor, the highlights will be cleared (the second autocommand).
-                    local client = vim.lsp.get_client_by_id(event.data.client_id)
                     if client and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_documentHighlight, event.buf) then
                         local highlight_augroup = vim.api.nvim_create_augroup('kickstart-lsp-highlight',
                             { clear = false })
