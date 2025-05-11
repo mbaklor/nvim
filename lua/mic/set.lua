@@ -31,15 +31,27 @@ vim.opt.splitright = true
 
 vim.opt.termguicolors = true
 
-if vim.uv.os_uname().sysname == 'Windows_NT' then
-    vim.opt.shell = 'pwsh'
-    vim.opt.shellcmdflag = '-nologo -noprofile -ExecutionPolicy RemoteSigned -command'
-    vim.opt.shellxquote = ''
+if vim.uv.os_uname().sysname == "Windows_NT" then
+	vim.opt.shell = "pwsh"
+	vim.opt.shellcmdflag = "-nologo -noprofile -ExecutionPolicy RemoteSigned -command"
+	vim.opt.shellxquote = ""
 end
 
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
 vim.opt.exrc = true
+
+if vim.version().minor <= 12 then
+	require("vim._extui").enable({
+		enable = true,
+		msg = {
+			pos = "box",
+			box = {
+				timeout = 4000,
+			},
+		},
+	})
+end
 
 vim.g.mapleader = " "
