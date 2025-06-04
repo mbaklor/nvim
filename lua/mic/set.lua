@@ -42,7 +42,7 @@ vim.opt.smartcase = true
 
 vim.opt.exrc = true
 
-if vim.version().minor <= 12 then
+if vim.version().minor >= 12 then
 	require("vim._extui").enable({
 		enable = true,
 		msg = {
