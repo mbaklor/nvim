@@ -42,6 +42,8 @@ vim.opt.smartcase = true
 
 vim.opt.exrc = true
 
+vim.o.winborder = "rounded"
+
 if vim.version().minor >= 12 then
 	require("vim._extui").enable({
 		enable = true,
