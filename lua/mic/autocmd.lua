@@ -38,19 +38,6 @@ autocmd("TextYankPost", {
 --     end,
 -- })
 
-autocmd("User", {
-	pattern = "TelescopeFindPre",
-	callback = function()
-		vim.opt_local.winborder = "none"
-		vim.api.nvim_create_autocmd("WinLeave", {
-			once = true,
-			callback = function()
-				vim.opt_local.winborder = "rounded"
-			end,
-		})
-	end,
-})
-
 autocmd("BufReadPost", {
 	callback = function(args)
 		local mark = vim.api.nvim_buf_get_mark(args.buf, '"')
