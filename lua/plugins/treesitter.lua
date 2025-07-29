@@ -34,10 +34,50 @@ return {
 					-- Instead of true it can also be a list of languages
 					additional_vim_regex_highlighting = false,
 				},
-				matchup = {
-					enable = true,
-				},
 			})
 		end,
 	},
 }
+
+--[[ TODO figure out treesitter main migrartion
+	{
+		"nvim-treesitter/nvim-treesitter",
+		branch = "main",
+		build = ":TSUpdate",
+		config = function()
+			-- TODO: figure out auto-install
+
+			local ts = require("nvim-treesitter")
+
+			local ensureInstalled = {
+				"javascript",
+				"typescript",
+				"lua",
+				"vim",
+				"vimdoc",
+				"query",
+				"go",
+			}
+			local alreadyInstalled = require("nvim-treesitter.config").get_installed()
+			local parsersToInstall = vim.iter(ensureInstalled)
+				:filter(function(parser)
+					return not vim.tbl_contains(alreadyInstalled, parser)
+				end)
+				:totable()
+			ts.install(parsersToInstall)
+
+			vim.api.nvim_create_autocmd("FileType", {
+				pattern = ensureInstalled,
+				callback = function()
+					-- local installed = require("nvim-treesitter.config").get_installed()
+					-- local current_ft = vim.bo.filetype
+					-- for _, ft in ipairs(installed) do
+					-- 	if ft == current_ft then
+					vim.treesitter.start()
+					-- 		end
+					-- 	end
+				end,
+			})
+		end,
+	},
+--]]
