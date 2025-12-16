@@ -1,45 +1,58 @@
-return {
-	{
-		"nvim-treesitter/nvim-treesitter-context",
-		opts = {
-			enable = true,
-		},
-	},
-	{
-		"nvim-treesitter/nvim-treesitter",
-		build = ":TSUpdate",
-		config = function()
-			local config = require("nvim-treesitter.configs")
+-- stolen from the config of someone on reddit, sorry I forgot to save the credit
+-- this is a lesson to me to always write things down as soon as I steal them :(
+local function install_and_start()
+	-- Auto-install and start treesitter parser for any buffer with a registered filetype
+	vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
+		callback = function(event)
+			local bufnr = event.buf
+			local filetype = vim.api.nvim_get_option_value("filetype", { buf = bufnr })
+			-- Skip if no filetype
+			if filetype == "" then
+				return
+			end
 
-			config.setup({
-				-- A list of parser names, or "all" (the five listed parsers should always be installed)
-				ensure_installed = { "javascript", "typescript", "lua", "vim", "vimdoc", "query", "go" },
+			-- Get parser name based on filetype
+			local parser_name = vim.treesitter.language.get_lang(filetype) -- WARNING: might return filetype (not helpful)
+			if not parser_name then
+				return
+			end
 
-				-- Install parsers synchronously (only applied to `ensure_installed`)
-				sync_install = false,
+			-- Check if parser_name is available in parser configs
+			local parser_configs = require("nvim-treesitter.parsers")
+			local parser_can_be_used = nil
+			parser_can_be_used = parser_configs[parser_name]
 
-				-- Automatically install missing parsers when entering buffer
-				-- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
-				auto_install = true,
+			if not parser_can_be_used then
+				return -- Parser not ailable, skip silently
+			end
 
-				---- If you need to change the installation directory of the parsers (see -> Advanced Setup)
-				-- parser_install_dir = "/some/path/to/store/parsers", -- Remember to run vim.opt.runtimepath:append("/some/path/to/store/parsers")!
+			local parser_installed = pcall(vim.treesitter.get_parser, bufnr, parser_name)
 
-				highlight = {
-					enable = true,
+			-- If not installed, install parser synchronously
+			if not parser_installed then
+				require("nvim-treesitter").install({ parser_name }):wait(30000) -- main branch syntax
+				vim.notify("Installed parser: " .. parser_name, vim.log.levels.INFO, { title = "core/treesitter" })
+			end
 
-					-- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-					-- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-					-- Using this option may slow down your editor, and you may see some duplicate highlights.
-					-- Instead of true it can also be a list of languages
-					additional_vim_regex_highlighting = false,
-				},
-			})
+			-- Check so tree-sitter can see the newly installed parser
+			parser_installed = pcall(vim.treesitter.get_parser, bufnr, parser_name)
+			if not parser_installed then
+				vim.notify(
+					"Failed to get parser for " .. parser_name .. " after installation",
+					vim.log.levels.WARN,
+					{ title = "core/treesitter" }
+				)
+				return
+			end
+
+			-- Start treesitter for this buffer
+			vim.treesitter.start(bufnr, parser_name)
 		end,
-	},
-}
+	})
+end
 
---[[ TODO figure out treesitter main migrartion
+-- TODO figure out treesitter main migrartion
+return {
 	{
 		"nvim-treesitter/nvim-treesitter",
 		branch = "main",
@@ -47,9 +60,7 @@ return {
 		config = function()
 			-- TODO: figure out auto-install
 
-			local ts = require("nvim-treesitter")
-
-			local ensureInstalled = {
+			local ensure_installed = {
 				"javascript",
 				"typescript",
 				"lua",
@@ -57,27 +68,39 @@ return {
 				"vimdoc",
 				"query",
 				"go",
+				"css",
+				"html",
+				"svelte",
 			}
-			local alreadyInstalled = require("nvim-treesitter.config").get_installed()
-			local parsersToInstall = vim.iter(ensureInstalled)
-				:filter(function(parser)
-					return not vim.tbl_contains(alreadyInstalled, parser)
-				end)
-				:totable()
-			ts.install(parsersToInstall)
+			require("nvim-treesitter").install(ensure_installed)
+			--register(ensure_installed)
+			install_and_start()
+			-- local alreadyInstalled = require("nvim-treesitter.config").get_installed()
+			-- local parsersToInstall = vim.iter(ensureInstalled)
+			-- 	:filter(function(parser)
+			-- 		return not vim.tbl_contains(alreadyInstalled, parser)
+			-- 	end)
+			-- 	:totable()
+			-- ts.install(parsersToInstall)
 
-			vim.api.nvim_create_autocmd("FileType", {
-				pattern = ensureInstalled,
-				callback = function()
-					-- local installed = require("nvim-treesitter.config").get_installed()
-					-- local current_ft = vim.bo.filetype
-					-- for _, ft in ipairs(installed) do
-					-- 	if ft == current_ft then
-					vim.treesitter.start()
-					-- 		end
-					-- 	end
-				end,
-			})
+			-- vim.api.nvim_create_autocmd("FileType", {
+			-- 	pattern = ensure_installed,
+			-- 	callback = function()
+			-- 		-- local installed = require("nvim-treesitter.config").get_installed()
+			-- 		-- local current_ft = vim.bo.filetype
+			-- 		-- for _, ft in ipairs(installed) do
+			-- 		-- 	if ft == current_ft then
+			-- 		vim.treesitter.start()
+			-- 		-- 		end
+			-- 		-- 	end
+			-- 	end,
+			-- })
 		end,
 	},
---]]
+	{
+		"nvim-treesitter/nvim-treesitter-context",
+		opts = {
+			enable = true,
+		},
+	},
+}
