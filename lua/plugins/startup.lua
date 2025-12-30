@@ -83,12 +83,12 @@ return {
         starter.setup({
             header = oddish,
             items = {
-                { name = "Open Recent", action = "lua require('telescope.builtin').oldfiles({only_cwd = true})", section = "Telescope" },
+                { name = "Open Recent", action = "lua require('fzf-lua').oldfiles({cwd_only = true})",  section = "Telescope" },
                 -- starter.sections.recent_files(10, true),
-                { name = "Find Files",  action = "Telescope find_files",                                         section = "Telescope" },
+                { name = "Find Files",  action = "FzfLua files",                                        section = "Telescope" },
                 harpoon_files(),
-                { name = "Lazy", action = "Lazy check",                                            section = "Builtin actions" },
-                { name = "Git",  action = "lua vim.cmd('Explore') vim.cmd('Git') vim.cmd('only')", section = "Builtin actions" },
+                { name = "Lazy", action = "Lazy check",                                                 section = "Builtin actions" },
+                { name = "Git",  action = "lua vim.cmd('Explore') vim.cmd('Git') vim.cmd('only')",      section = "Builtin actions" },
                 starter.sections.builtin_actions()
             },
         })
