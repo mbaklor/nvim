@@ -1,4 +1,4 @@
-vim.keymap.set("n", "<leader>ex", vim.cmd.Ex)
+vim.keymap.set("n", "<leader>e", vim.cmd.Ex)
 
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
@@ -27,24 +27,19 @@ vim.keymap.set("n", "<leader>O", "O<ESC>")
 vim.keymap.set("n", "<leader>k", ":MatchupWhereAmI<CR>")
 
 vim.keymap.set("n", "<leader>t", function()
-    local term = vim.fn.bufnr("term")
-    local win = vim.fn.bufwinnr(term)
-    if win > 0 then
-        vim.cmd(win .. 'wincmd w')
-    else
-        vim.cmd("split")
-        if term > 0 then
-            vim.cmd('buf ' .. term)
-        else
-            vim.cmd("term")
-        end
-    end
-    vim.cmd("startinsert")
+	local term = vim.fn.bufnr("term")
+	local win = vim.fn.bufwinnr(term)
+	if win > 0 then
+		vim.cmd(win .. "wincmd w")
+	else
+		vim.cmd("split")
+		if term > 0 then
+			vim.cmd("buf " .. term)
+		else
+			vim.cmd("term")
+		end
+	end
+	vim.cmd("startinsert")
 end)
-vim.api.nvim_create_user_command('Hd',
-    function()
-        require("hardtime").setup()
-    end,
-    {})
 
-vim.api.nvim_create_user_command('W', ":noautocmd w", {})
+vim.api.nvim_create_user_command("W", ":noautocmd w", {})

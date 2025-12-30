@@ -9,5 +9,4 @@ return {
 			matchup_surround_enabled = 1,
 		},
 	},
-	{ "RRethy/vim-illuminate" },
 }
