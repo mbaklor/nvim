@@ -10,6 +10,13 @@ return {
 		---@diagnostics enable: missing-fields
 		keys = {
 			{ "<leader>ff", "<cmd>FzfLua files<cr>", desc = "fzf files" },
+			{
+				"<leader>fj",
+				function()
+					FzfLua.files({ cwd = vim.fn.expand("%:p:h") })
+				end,
+				desc = "fzf files in buffer directory",
+			},
 			{ "<leader>fo", "<cmd>FzfLua oldfiles cwd_only=true<cr>", desc = "fzf files" },
 			{ "<leader>fb", "<cmd>FzfLua buffers<cr>", desc = "fzf buffers" },
 			{ "<leader>fs", "<cmd>FzfLua grep<cr>", desc = "fzf grep" },
