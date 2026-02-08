@@ -45,7 +45,7 @@ vim.opt.exrc = true
 vim.o.winborder = "rounded"
 
 if vim.version().minor >= 12 then
-	require("vim._extui").enable({
+	require("vim._core.ui2").enable({
 		enable = true,
 		msg = {
 			target = "msg",
