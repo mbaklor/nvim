@@ -84,7 +84,7 @@ local kickstart = {
 						return
 					end
 					if client:supports_method("textDocument/documentColor") then
-						vim.lsp.document_color.enable(true, event.buf, { style = "virtual" })
+						vim.lsp.document_color.enable(true, { bufnr = event.buf }, { style = "virtual" })
 					end
 					--[[
 

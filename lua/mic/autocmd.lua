@@ -66,7 +66,9 @@ vim.api.nvim_create_autocmd("LspProgress", {
 				lsp_progress[client_id] = {}
 			end
 			local progress = {
+				id = "lsp" .. token,
 				kind = "progress",
+				source = "vim.lsp",
 				status = "running",
 				percent = value.percentage,
 				title = string.format("LspProgress(%s[%d])", client.name, ev.data.client_id),
