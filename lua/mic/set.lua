@@ -48,8 +48,10 @@ if vim.version().minor >= 12 then
 	require("vim._core.ui2").enable({
 		enable = true,
 		msg = {
-			target = "msg",
-			timeout = 4000,
+			targets = "msg",
+			msg = {
+				timeout = 4000,
+			},
 		},
 	})
 end
