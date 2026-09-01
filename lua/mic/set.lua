@@ -49,9 +49,7 @@ if vim.version().minor >= 12 then
 		enable = true,
 		msg = {
 			targets = "msg",
-			msg = {
-				timeout = 4000,
-			},
+			timeout = 4000,
 		},
 	})
 end
