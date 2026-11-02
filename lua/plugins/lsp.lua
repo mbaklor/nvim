@@ -74,10 +74,10 @@ local kickstart = {
 					--  For example, in C this would take you to the header.
 					map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
 
-					-- map('grf', vim.lsp.buf.format(), '[F]ormat Buffer')
-
 					map("<C-h>", vim.lsp.buf.signature_help, "Show Signature [H]elp", "i")
 					map("gl", vim.diagnostic.setqflist, "Diagnostics [L]ist")
+					map("K", vim.lsp.buf.hover, "Show Hover")
+					map("grf", vim.lsp.buf.format, "Format Buffer")
 
 					local client = vim.lsp.get_client_by_id(event.data.client_id)
 					if client == nil then
@@ -86,6 +86,15 @@ local kickstart = {
 					if client:supports_method("textDocument/documentColor") then
 						vim.lsp.document_color.enable(true, { bufnr = event.buf }, { style = "virtual" })
 					end
+
+                    if client:supports_method('textDocument/formatting') then
+                        vim.api.nvim_create_autocmd('BufWritePre', {
+                            buffer = event.buf,
+                            callback = function ()
+                                vim.lsp.buf.format({async = false, id = client.id})
+                            end
+                        })
+                    end
 					--[[
 
                     -- This function resolves a difference between neovim nightly (version 0.11) and stable (version 0.10)
@@ -193,13 +202,13 @@ local kickstart = {
 				pyright = {},
 				-- rust_analyzer = {},
 				-- powershell_es = {},
-				ts_ls = {
-					capabilities = {
-						textDocument = {
-							formatting = false,
-						},
-					},
-				},
+				-- ts_ls = {
+				-- 	capabilities = {
+				-- 		textDocument = {
+				-- 			formatting = false,
+				-- 		},
+				-- 	},
+				-- },
 				svelte = {},
 				cssls = {},
 				emmet_ls = {},
@@ -264,48 +273,6 @@ local kickstart = {
 		end,
 	},
 
-	{ -- Autoformat
-		"stevearc/conform.nvim",
-		event = { "BufWritePre" },
-		cmd = { "ConformInfo" },
-		keys = {
-			{
-				"grf",
-				function()
-					require("conform").format({ async = true, lsp_format = "fallback" })
-				end,
-				mode = "",
-				desc = "[F]ormat buffer",
-			},
-		},
-		opts = {
-			notify_on_error = false,
-			format_on_save = function(bufnr)
-				-- Disable "format_on_save lsp_fallback" for languages that don't
-				-- have a well standardized coding style. You can add additional
-				-- languages here or re-enable it for the disabled ones.
-				local disable_filetypes = { c = true, cpp = true }
-				if disable_filetypes[vim.bo[bufnr].filetype] then
-					return nil
-				else
-					return {
-						timeout_ms = 500,
-						lsp_format = "fallback",
-					}
-				end
-			end,
-			formatters_by_ft = {
-				lua = { "stylua" },
-				javascript = { "prettierd", "prettier", stop_after_first = true },
-				typescript = { "prettierd", "prettier", stop_after_first = true },
-				-- Conform can also run multiple formatters sequentially
-				-- python = { "isort", "black" },
-				--
-				-- You can use 'stop_after_first' to run the first available formatter from the list
-				-- javascript = { "prettierd", "prettier", stop_after_first = true },
-			},
-		},
-	},
 
 	{ -- Autocompletion
 		"saghen/blink.cmp",
